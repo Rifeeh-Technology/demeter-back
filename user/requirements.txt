@@ -1,0 +1,5 @@
+requests
+flask
+flask-lambda-python36
+Werkzeug==2.0.3
+Flask-CORS

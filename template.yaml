@@ -1,0 +1,52 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  demeter-back
+
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  PostgresLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: postgres/
+      CompatibleRuntimes:
+        - python3.8
+  Property:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: property/
+      Handler: app.app
+      Runtime: python3.8
+      Layers:
+        - !Ref PostgresLayer
+      Events:
+        property:
+          Type: Api
+          Properties:
+            Path: /property
+            Method: post
+  User:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: user/
+      Handler: app.app
+      Runtime: python3.8
+      Events:
+        property:
+          Type: Api
+          Properties:
+            Path: /user
+            Method: get
+#Outputs:
+#  DemeterApi:
+#    Description: "API Gateway endpoint URL for Prod stage for Demeter function"
+#    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/demeter/"
+#  DemeterFunction:
+#    Description: "Demeter Lambda Function ARN"
+#    Value: !GetAtt PropertyFunction.Arn
+#  DemeterFunctionIamRole:
+#    Description: "Implicit IAM Role created for Demeter function"
+#    Value: !GetAtt PropertyFunction.Arn
