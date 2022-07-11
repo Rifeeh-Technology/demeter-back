@@ -22,3 +22,12 @@ def get_db_connection():
                             password=password,
                             port=port)
     return conn
+
+
+def insert(sql):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute(sql)
+    conn.commit()
+    cur.close()
+    conn.close()
