@@ -21,44 +21,37 @@ env:
 
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: |
-        # trigger the tests here
-
   build-and-deploy-feature:
     # this stage is triggered only for feature branches (feature*),
     # which will build the stack and deploy to a stack named with branch name.
     if: startsWith(github.ref, 'refs/heads/feature')
-    needs: [ test ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
       - uses: aws-actions/setup-sam@v1
       - run: sam build --template ${SAM_TEMPLATE} --use-container
+
       - name: Assume the testing pipeline user role
-      - uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ env.DEPLOY_USER_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ env.DEPLOY_USER_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.TESTING_REGION }}
-        role-to-assume: ${{ env.TESTING_DEPLOY_EXECUTION_ROLE }}
-        role-session-name: feature-deployment
-        role-duration-seconds: 3600
-        role-skip-session-tagging: true
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.DEPLOY_USER_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.DEPLOY_USER_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.TESTING_REGION }}
+          role-to-assume: ${{ env.TESTING_DEPLOY_EXECUTION_ROLE }}
+          role-session-name: feature-deployment
+          role-duration-seconds: 3600
+          role-skip-session-tagging: true
 
       - name: Deploy to feature stack in the testing account
-      shell: bash
-      run: |
-        sam deploy --stack-name $(echo ${GITHUB_REF##*/} | tr -cd '[a-zA-Z0-9-]') \
-         --capabilities CAPABILITY_IAM \
-         --region ${TESTING_REGION} \
-         --s3-bucket ${TESTING_ARTIFACTS_BUCKET} \
-         --no-fail-on-empty-changeset \
-         --role-arn ${TESTING_CLOUDFORMATION_EXECUTION_ROLE}
+        shell: bash
+        run: |
+          sam deploy --stack-name $(echo ${GITHUB_REF##*/} | tr -cd '[a-zA-Z0-9-]') \
+           --capabilities CAPABILITY_IAM \
+           --region ${TESTING_REGION} \
+           --s3-bucket ${TESTING_ARTIFACTS_BUCKET} \
+           --no-fail-on-empty-changeset \
+           --role-arn ${TESTING_CLOUDFORMATION_EXECUTION_ROLE}
 
   build-and-package:
     if: github.ref == 'refs/heads/main'
