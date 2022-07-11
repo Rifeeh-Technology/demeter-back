@@ -39,7 +39,7 @@ Resources:
       Runtime: python3.8
       Environment:
         Variables:
-          DEMETER_DB: "{{resolve:ssm:/DEMETER_DB}}}"
+          DEMETER_DB: "{{resolve:ssm:/DEMETER_DB:1}}}"
       Layers:
         - !Ref PostgresLayer
       Events:
