@@ -40,7 +40,7 @@ jobs:
       - uses: aws-actions/setup-sam@v1
       - run: sam build --template ${SAM_TEMPLATE} --use-container
       - name: Assume the testing pipeline user role
-      uses: aws-actions/configure-aws-credentials@v1
+      - uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ env.DEPLOY_USER_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ env.DEPLOY_USER_SECRET_ACCESS_KEY }}
