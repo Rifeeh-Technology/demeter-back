@@ -15,6 +15,7 @@ def create_property(request):
     }
     try:
         insert(sql)
-        return {"mesage": "OK"}, 200, header
+        return {"mensagem": "OK",
+                "body": body}, 200, header
     except Exception as err:
         raise err
