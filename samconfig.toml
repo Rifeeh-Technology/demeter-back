@@ -2,11 +2,9 @@ version = 0.1
 [default]
 [default.deploy]
 [default.deploy.parameters]
-stack_name = "dem-test"
-s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1gd58zudv25f4"
-s3_prefix = "dem"
+stack_name = "dem-dev"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1aiohpl9smcc7"
+s3_prefix = "dem-dev"
 region = "us-east-1"
-confirm_changeset = false
 capabilities = "CAPABILITY_IAM"
-disable_rollback = false
 image_repositories = []
