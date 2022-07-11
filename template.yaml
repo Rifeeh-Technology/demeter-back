@@ -20,20 +20,31 @@ Resources:
       CodeUri: property/
       Handler: app.app
       Runtime: python3.8
+      Environment:
+        Variables:
+          DEMETER_DB: "{{resolve:ssm:/DEMETER_DB}}}"
       Layers:
         - !Ref PostgresLayer
       Events:
-        property:
+        createProperty:
           Type: Api
           Properties:
             Path: /property
             Method: post
+        getAllProperty:
+          Type: Api
+          Properties:
+            Path: /property
+            Method: get
   User:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: user/
       Handler: app.app
       Runtime: python3.8
+      Environment:
+        Variables:
+          DEMETER_DB: "{{resolve:ssm:/DEMETER_DB}}}"
       Events:
         property:
           Type: Api

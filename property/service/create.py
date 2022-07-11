@@ -1,4 +1,6 @@
-import insert
+import logging
+
+from postgres import insert
 
 
 def execute(request):
@@ -9,9 +11,13 @@ def create_property(request):
     body = request.get_json()
     a = str(body['geomLocalization']).replace('\'', '"')
     name = body['name']
-    sql = f"INSERT INTO property (name, geom_localization, create_date) VALUES ('{name}', '{a}', now()) "
-    insert.insert(sql)
+    sql = f"INSERT INTO property (name, geom_localization, create_date) VALUES ('{name}', '{a}', now())"
     header = {
         'Content-Type': 'application/json'
     }
-    return {"mesage": "OK"}, 200, header
+    try:
+        insert(sql)
+        return {"mesage": "OK"}, 201, header
+    except Exception as err:
+        logging.error(str(err))
+        raise err
