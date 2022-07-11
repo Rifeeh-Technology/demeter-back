@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "dem-prod"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1aiohpl9smcc7"
+s3_prefix = "dem-prod"
+region = "us-east-1"
+profile = "pessoal"
+capabilities = "CAPABILITY_IAM"
+image_repositories = []

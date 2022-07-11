@@ -2,7 +2,7 @@ name: Python application
 on:
   push:
     branches:
-      - develop
+      - main
 jobs:
   deploy-lambda:
     runs-on: ubuntu-latest
@@ -18,4 +18,4 @@ jobs:
       # Build using SAM
       - run: sam build --use-container --template-file template.yaml
       # Deploy on AWS
-      - run: sam deploy --config-file samconfig-dev.toml
+      - run: sam deploy --config-file samconfig-prod.toml

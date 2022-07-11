@@ -40,8 +40,8 @@ Resources:
       Environment:
         Variables:
           DEMETER_DB: "{{resolve:ssm:/DEMETER_DB}}}"
-        Layers:
-          - !Ref PostgresLayer
+      Layers:
+        - !Ref PostgresLayer
       Events:
         property:
           Type: Api
