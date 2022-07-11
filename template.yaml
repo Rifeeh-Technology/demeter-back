@@ -20,6 +20,9 @@ Resources:
       CodeUri: property/
       Handler: app.app
       Runtime: python3.8
+      Environment:
+        Variables:
+          DEMETER_DB: "{{resolve:ssm:/DEMETER_DB}}}"
       Layers:
         - !Ref PostgresLayer
       Events:
@@ -34,6 +37,11 @@ Resources:
       CodeUri: user/
       Handler: app.app
       Runtime: python3.8
+      Environment:
+        Variables:
+          DEMETER_DB: "{{resolve:ssm:/DEMETER_DB}}}"
+        Layers:
+          - !Ref PostgresLayer
       Events:
         property:
           Type: Api
