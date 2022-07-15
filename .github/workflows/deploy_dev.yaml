@@ -7,6 +7,11 @@ jobs:
   deploy-lambda:
     runs-on: ubuntu-latest
     steps:
+      - run: ls
+      - run: cd .github
+      - run: ls
+      - run: cd ..
+      - run: ls
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
       - uses: aws-actions/setup-sam@v1
