@@ -7,11 +7,6 @@ jobs:
   deploy-lambda:
     runs-on: ubuntu-latest
     steps:
-      - run: ls
-        working-directory: .github
-      - run: ls
-        working-directory: ..
-      - run: ls
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
       - uses: aws-actions/setup-sam@v1
@@ -21,6 +16,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       # Build using SAM
+      working-directory: .github
       - run: sam build --use-container --template-file template.yaml
       # Deploy on AWS
       - run: sam deploy --config-file samconfig-dev.toml
