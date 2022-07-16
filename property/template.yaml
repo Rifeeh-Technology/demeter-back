@@ -11,7 +11,7 @@ Resources:
   Property:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: property/
+      CodeUri: ./
       Handler: app.app
       Runtime: python3.8
       Environment:
