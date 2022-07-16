@@ -8,12 +8,6 @@ Globals:
     Timeout: 3
 
 Resources:
-  PostgresLayer:
-    Type: AWS::Serverless::LayerVersion
-    Properties:
-      ContentUri: ../postgres/
-      CompatibleRuntimes:
-        - python3.8
   Property:
     Type: AWS::Serverless::Function
     Properties:
