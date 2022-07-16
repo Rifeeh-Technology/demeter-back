@@ -17,7 +17,5 @@ jobs:
           aws-region: us-east-1
       # Build using SAM
       - run: sam build --use-container --template-file template.yaml
-      working-directory: ./property
       # Deploy on AWS
       - run: sam deploy --config-file samconfig-prod.toml
-      working-directory: ./property
