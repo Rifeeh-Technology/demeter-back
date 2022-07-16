@@ -2,9 +2,9 @@ version = 0.1
 [default]
 [default.deploy]
 [default.deploy.parameters]
-stack_name = "property"
-s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1aiohpl9smcc7"
-s3_prefix = "property"
+stack_name = "teste"
+s3_prefix = "teste"
 region = "us-east-1"
 capabilities = "CAPABILITY_IAM"
 image_repositories = []
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1aiohpl9smcc7"
