@@ -2,7 +2,7 @@ name: Deploy
 on:
   push:
     branches:
-      - deploy-automation
+      - develop
 jobs:
   deploy-lambda:
     runs-on: ubuntu-latest
