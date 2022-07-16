@@ -18,8 +18,6 @@ jobs:
       # Build using SAM
       - name: Build
         run: sam build --use-container --template-file template.yaml
-        working-directory: ./property
       # Deploy on AWS
       - name: Deploy
-        run: sam deploy --config-file samconfig.toml
-        working-directory: ./property
+        run: sam deploy --config-file samconfig-dev.toml
