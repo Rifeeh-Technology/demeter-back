@@ -1,4 +1,4 @@
-import insert
+from postgres import insert
 
 
 def execute(request):
@@ -10,8 +10,12 @@ def create_property(request):
     a = str(body['geomLocalization']).replace('\'', '"')
     name = body['name']
     sql = f"INSERT INTO property (name, geom_localization, create_date) VALUES ('{name}', '{a}', now()) "
-    insert.insert(sql)
     header = {
         'Content-Type': 'application/json'
     }
-    return {"mesage": "OK"}, 200, header
+    try:
+        insert(sql)
+        return {"mensagem": "OK",
+                "body": body}, 200, header
+    except Exception as err:
+        raise err
