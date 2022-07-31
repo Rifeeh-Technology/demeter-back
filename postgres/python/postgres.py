@@ -1,5 +1,6 @@
 import os
 import psycopg2
+from psycopg2.extras import RealDictCursor
 import urllib.parse as urlparse
 
 url = urlparse.urlparse(os.environ['DEMETER_DB'])
@@ -19,10 +20,18 @@ def get_db_connection():
     return conn
 
 
-def insert(sql):
-    conn = get_db_connection()
-    cur = conn.cursor()
-    cur.execute(sql)
-    conn.commit()
-    cur.close()
-    conn.close()
+def connect(sql, fetch=False):
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        cur.execute(sql)
+        if fetch is True:
+            return cur.fetchall()
+        conn.commit()
+    except Exception as e:
+        raise e
+    finally:
+        cur.close()
+        conn.close()
+
+
