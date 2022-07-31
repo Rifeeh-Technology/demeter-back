@@ -1,9 +1,9 @@
-from postgres import get
+from postgres import connect
 
 
 def execute(request):
     args = request.args
-    if args is None:
+    if len(args) == 0:
         return restore_all_property()
     elif args["id"] is not None:
         return restore_property(args["id"])
@@ -14,7 +14,7 @@ def restore_property(id):
     header = {
         'Content-Type': 'application/json'
     }
-    result = get(sql)
+    result = connect(sql=sql, fetch=True)
     if not result:
         return {"message": "Property is not existent."}, 404, header
     try:
@@ -28,7 +28,7 @@ def restore_all_property():
     header = {
         'Content-Type': 'application/json'
     }
-    result = get(sql)
+    result = connect(sql=sql, fetch=True)
     try:
         return {"body": result}, 200, header
     except Exception as err:

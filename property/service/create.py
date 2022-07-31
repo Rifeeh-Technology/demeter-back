@@ -1,4 +1,4 @@
-from postgres import insert
+from postgres import connect
 
 
 def execute(request):
@@ -14,7 +14,7 @@ def create_property(request):
         'Content-Type': 'application/json'
     }
     try:
-        insert(sql)
+        connect(sql)
         return {"mensagem": "OK",
                 "body": body}, 200, header
     except Exception as err:

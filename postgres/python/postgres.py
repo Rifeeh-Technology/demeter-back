@@ -20,17 +20,18 @@ def get_db_connection():
     return conn
 
 
-def insert(sql):
-    conn = get_db_connection()
-    cur = conn.cursor()
-    cur.execute(sql)
-    conn.commit()
-    cur.close()
-    conn.close()
+def connect(sql, fetch=False):
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        cur.execute(sql)
+        if fetch is True:
+            return cur.fetchall()
+        conn.commit()
+    except Exception as e:
+        raise e
+    finally:
+        cur.close()
+        conn.close()
 
 
-def get(sql):
-    conn = get_db_connection()
-    cur = conn.cursor(cursor_factory=RealDictCursor)
-    cur.execute(sql)
-    return cur.fetchall()
