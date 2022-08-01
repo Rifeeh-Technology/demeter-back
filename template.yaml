@@ -26,11 +26,21 @@ Resources:
       Layers:
         - !Ref PostgresLayer
       Events:
-        property:
+        property_get:
+          Type: Api
+          Properties:
+            Path: /property
+            Method: get
+        property_post:
           Type: Api
           Properties:
             Path: /property
             Method: post
+        property_put:
+          Type: Api
+          Properties:
+            Path: /property
+            Method: put
   User:
     Type: AWS::Serverless::Function
     Properties:
