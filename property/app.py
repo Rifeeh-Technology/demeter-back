@@ -17,4 +17,8 @@ def get_property():
 
 @app.route("/property", methods=["PUT"])
 def update_property():
-    return update.execute(request)
+    header = {
+        'Content-Type': 'application/json'
+    }
+    return {"mensagem": "teste"}, 200, header
+
