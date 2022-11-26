@@ -13,6 +13,7 @@ def create_property(request):
     header = {
         'Content-Type': 'application/json'
     }
+    print("teste")
     try:
         connect(sql)
         return {"mensagem": "OK",
