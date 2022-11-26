@@ -22,25 +22,15 @@ Resources:
       Runtime: python3.8
       Environment:
         Variables:
-          DEMETER_DB: "{{resolve:ssm:/DEMETER_DB}}}"
+          DEMETER_DB: "{{resolve:ssm:/DEMETER_DB}}"
       Layers:
         - !Ref PostgresLayer
       Events:
-        property_get:
-          Type: Api
-          Properties:
-            Path: /property
-            Method: get
-        property_post:
+        property:
           Type: Api
           Properties:
             Path: /property
             Method: post
-        property_put:
-          Type: Api
-          Properties:
-            Path: /property
-            Method: put
   User:
     Type: AWS::Serverless::Function
     Properties:
@@ -49,7 +39,7 @@ Resources:
       Runtime: python3.8
       Environment:
         Variables:
-          DEMETER_DB: "{{resolve:ssm:/DEMETER_DB:1}}}"
+          DEMETER_DB: "{{resolve:ssm:/DEMETER_DB:1}}"
       Layers:
         - !Ref PostgresLayer
       Events:
